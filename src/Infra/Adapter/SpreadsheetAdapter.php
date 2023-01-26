@@ -8,7 +8,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use Symfony\Contracts\Service\Attribute\Required;
 
-class PhpSpreadsheetAdapter
+class SpreadsheetAdapter
 {
     private readonly Spreadsheet $phpSpreadSheetInstance;
 
@@ -19,7 +19,7 @@ class PhpSpreadsheetAdapter
         $this->phpSpreadSheetInstance = IOFactory::load($this->filename);
     }
 
-    public function getAtiveSheet(): Worksheet
+    public function getActiveSheet(): Worksheet
     {
         return $this->phpSpreadSheetInstance->getActiveSheet();
     }
