@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-use Adapter\PhpSpreadsheetAdapter;
+use App\Infra\Adapter\SpreadsheetAdapter;
+use App\Infra\Iterator\SpreadsheetIterator;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-return static function (ContainerConfigurator $containerConfigurator, \Symfony\Component\DependencyInjection\ContainerBuilder $container): void {
+return static function (ContainerConfigurator $containerConfigurator, \Symfony\Component\DependencyInjection\ContainerBuilder $container,): void {
     $services = $containerConfigurator->services();
 
     $services->defaults()
@@ -19,7 +21,13 @@ return static function (ContainerConfigurator $containerConfigurator, \Symfony\C
             __DIR__ . '/../src/Kernel.php'
         ]);
 
-//    $container->register('phpspreedsheet', PhpSpreadsheetAdapter::class)
-//        ->addArgument($container->get('env')->)
-//        ->addMethodCall('setPhpSpreedsheetLib', [\PhpOffice\PhpSpreadsheet\IOFactory::load('filename')], true);
+    $filename = $container->getParameter('kernel.project_dir') . '/public/LeaseWeb_servers_filters_assignment.xlsx';
+
+
+//    $services->set('data', IOFactory::class)
+//        ->call('load', [$filename], true)
+//        ->private();
+
+    $services->set(SpreadsheetAdapter::class)
+        ->args([$filename]);
 };
