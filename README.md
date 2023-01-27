@@ -1,12 +1,5 @@
 # Lease web
 
-
-### Notes
-
-- Due to lack of time I was unable to complete all the points I wanted.
-- This project is reading the data from the xlsx file and locking only to read, restricting to a certain number of columns and ignoring empty cells.
-- This project is using some OOP software design patterns like Adapter, Repository, Iterator; (Builder, Factory to be implemented)
-
 ### Data from excel
 ![Data from excel](docs/img.png)
 
