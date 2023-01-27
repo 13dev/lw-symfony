@@ -4,8 +4,12 @@ namespace App\Infra\Iterator;
 
 use App\Infra\Adapter\SpreadsheetAdapter;
 use Iterator;
+use PhpOffice\PhpSpreadsheet\Cell\Cell;
+use PhpOffice\PhpSpreadsheet\Worksheet\Row;
+use PhpOffice\PhpSpreadsheet\Worksheet\RowIterator;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
+/** @deprecated Not using iterator since it is loading more data in memory */
 final class SpreadsheetIterator implements Iterator
 {
     private const NUM_COLUMNS = 5;

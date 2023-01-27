@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Common\ValueObject;
 
-use App\Domain\Common\DataUnitEnum;
-use App\Domain\Common\RamTypeEnum;
+use App\Domain\Common\Enum\DataUnitEnum;
+use App\Domain\Common\Enum\RamTypeEnum;
 use InvalidArgumentException;
 use JetBrains\PhpStorm\Immutable;
-use JsonSerializable;
 
 #[Immutable]
 class RamValueObject
@@ -28,13 +27,15 @@ class RamValueObject
         $matches = [];
         preg_match(self::RAM_REGEX_EXPR, $value, $matches);
 
-        [$capacity, $dataUnit, $type] = $matches;
+        [$_, $capacity, $dataUnit, $type] = $matches;
 
         if (empty($matches) || !isset($capacity, $dataUnit, $type)) {
             throw new InvalidArgumentException('Invalid ram format.');
         }
 
+
         if (!$dataUnit = DataUnitEnum::tryFrom($dataUnit)) {
+
             throw new InvalidArgumentException('Unknown data unit.');
         }
 
@@ -45,7 +46,7 @@ class RamValueObject
         return new self(
             type: $type,
             unit: $dataUnit,
-            capacity: $capacity,
+            capacity: (int) $capacity,
         );
 
     }

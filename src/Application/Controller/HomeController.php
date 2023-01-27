@@ -4,6 +4,7 @@ namespace App\Application\Controller;
 
 use App\Infra\Adapter\SpreadsheetAdapter;
 use App\Infra\Iterator\SpreadsheetIterator;
+use App\Infra\Repository\ServerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,9 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/')]
 class HomeController extends AbstractController
 {
-    public function __construct(SpreadsheetAdapter $phpSpreadsheetAdapter)
+    public function __construct(ServerRepository $serverRepository)
     {
-        dd($phpSpreadsheetAdapter);
+        dd($serverRepository);
     }
 
     #[Route]

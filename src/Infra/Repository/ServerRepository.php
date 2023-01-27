@@ -1,30 +1,35 @@
 <?php
 
+namespace App\Infra\Repository;
+
 use App\Domain\Common\ValueObject\PriceValueObject;
 use App\Domain\Common\ValueObject\RamValueObject;
 use App\Domain\Common\ValueObject\StorageValueObject;
 use App\Domain\Repository\ServerRepositoryInterface;
-use App\Infra\Collection\SpreadSheetCollection;
+use App\Infra\Adapter\SpreadsheetAdapter;
 use App\Infra\Dto\ServerDto;
+use App\Infra\Iterator\SpreadsheetIterator;
+use Doctrine\Common\Collections\ArrayCollection;
 
 class ServerRepository implements ServerRepositoryInterface
 {
-    /**
-     * @return SpreadSheetCollection<string, ServerDto>
-     */
-    private $dataSource;
-
-    public function __construct(private SpreadSheetCollection $serversCollection)
+    public function __construct(private SpreadsheetAdapter $spreadsheetAdapter)
     {
-        $this->dataSource = $serversCollection->map(function ($element) {
+        $this->data()->map(function ($element) {
             return new ServerDto(
-                name: $element['name'],
-                ram: RamValueObject::fromString($element['ram']),
-                storage: StorageValueObject::fromString($element['storage']),
-                price: PriceValueObject::fromString($element['price']),
-                location: (string) $element['location'],
+                name: $element[0],
+                ram: RamValueObject::fromString($element[1]),
+                storage: StorageValueObject::fromString($element[2]),
+                price: PriceValueObject::fromString($element[4]),
+                location: (string)$element[3],
             );
         });
+    }
+
+
+    private function data()
+    {
+        return new ArrayCollection($this->spreadsheetAdapter->getData());
     }
 
 

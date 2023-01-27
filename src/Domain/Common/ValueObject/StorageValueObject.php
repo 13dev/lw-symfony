@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Domain\Common\ValueObject;
 
-use App\Domain\Common\DataUnitEnum;
-use App\Domain\Common\DiskTypeEnum;
+use App\Domain\Common\Enum\DataUnitEnum;
+use App\Domain\Common\Enum\DiskTypeEnum;
 use InvalidArgumentException;
 
 class StorageValueObject
 {
     // This regular expression limits the amount of digits and characters that can be matched,
     // making it less vulnerable to ReDOS attacks.
-    private const STORAGE_REGEX_EXPR = '/(\d{1,5})(x)(\d{1,5})(\w{2})(\w{1,20})/';
+    private const STORAGE_REGEX_EXPR = '/(\d{1,5})?(?:x)(\d{1,5})(\w{2})(\w{1,20})/';
 
 
     public function __construct(
@@ -34,7 +34,7 @@ class StorageValueObject
         $matches = [];
         preg_match(self::STORAGE_REGEX_EXPR, $value, $matches);
 
-        [$quantity, $capacity, $unit, $type] = $matches;
+        [$_, $quantity, $capacity, $unit, $type] = $matches;
 
         if (empty($matches) || !isset($quantity, $capacity, $unit, $type)) {
             throw new InvalidArgumentException('Invalid storage format.');

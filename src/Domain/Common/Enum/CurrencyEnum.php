@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Common;
+namespace App\Domain\Common\Enum;
 use Elao\Enum\Attribute\EnumCase;
 use Elao\Enum\Attribute\ReadableEnum;
 use Elao\Enum\ReadableEnumInterface;
