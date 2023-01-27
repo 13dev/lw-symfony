@@ -4,7 +4,8 @@
 ### Notes
 
 - Due to lack of time I was unable to complete all the points I wanted.
-- So the im reading the data from the xlsx file and locking only to read, restricting to a certain number of columns and ignoring empty cells.
+- This project is reading the data from the xlsx file and locking only to read, restricting to a certain number of columns and ignoring empty cells.
+- This project is using some OOP software design patterns like Adapter, Repository, Iterator; (Builder, Factory to be implemented)
 
 ### Data from excel
 ![Data from excel](docs/img.png)
@@ -54,6 +55,7 @@
 - Change `phpoffice/phpspreadsheet` to [openspout](https://github.com/openspout/openspout) lib.
   - **openspout** uses streams not all content is load in memory like phpspreadsheet (only one cell is loaded in memory `$iterator->current()`)
 - Use some type of cache (Redis, MEMCache) to store the servers info or make the phpspreadsheet use batches so consumes less memory;
+  - make a md5 hash of file (so we know that the info as not change, all can be cached)
 - Implement k8s;
 - Since the scope/domain of this project is small - Reduce the arch of the project;
 - Implement CI/CD pipelines (Lint, Tests, Automatic deploys);
