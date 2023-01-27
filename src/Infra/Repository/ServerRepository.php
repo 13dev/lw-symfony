@@ -18,7 +18,7 @@ class ServerRepository implements ServerRepositoryInterface
     {
         $this->data = new ArrayCollection($this->spreadsheetAdapter->toArray());
 
-        $this->data->map(function ($element) {
+        $this->data = $this->data->map(function ($element) {
             return new ServerDto(
                 name: $element[0],
                 ram: RamValueObject::fromString($element[1]),
@@ -27,5 +27,11 @@ class ServerRepository implements ServerRepositoryInterface
                 location: (string) $element[3],
             );
         });
+    }
+
+
+    public function getAll()
+    {
+        return $this->data->toArray();
     }
 }

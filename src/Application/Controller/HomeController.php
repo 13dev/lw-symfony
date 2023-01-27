@@ -12,7 +12,7 @@ class HomeController extends AbstractController
 {
     public function __construct(ServerRepository $serverRepository)
     {
-        dd($serverRepository->data());
+        dd($serverRepository->getAll());
     }
 
     #[Route]
