@@ -34,6 +34,7 @@
 - [ ] Feature tests with @_dataProviders_;
 - [ ] Implement Disk parser;
 - [ ] Search for duplicates;
+- [ ] Use Semantic release;
 - [ ] Expose API using _REST_ / _GraphQL_;
 - [ ] Reorganize structure of the project (now is using kind of DDD);
 - [ ] **DDD is too much overkill for a project of this size** none of the concepts of DDD was applied Ubiquitous language, Boundaries, Context Boundary, Domains, etc...(only Value Objects, and half of structure);
