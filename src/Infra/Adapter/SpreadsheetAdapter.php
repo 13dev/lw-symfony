@@ -21,7 +21,6 @@ class SpreadsheetAdapter
         $reader->setReadDataOnly(true);
         $reader->setReadEmptyCells(false);
         $reader->setLoadSheetsOnly('Sheet2');
-        $reader->setReadFilter(new ReaderFilter());
 
         $this->phpSpreadSheetInstance = $reader->load($this->filename);
 

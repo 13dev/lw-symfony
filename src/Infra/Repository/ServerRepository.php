@@ -27,7 +27,7 @@ class ServerRepository implements ServerRepositoryInterface
     }
 
 
-    private function data()
+    public function data()
     {
         return new ArrayCollection($this->spreadsheetAdapter->getData());
     }
