@@ -14,6 +14,10 @@
 #### Parsed data
 ![Parsed data](docs/img_1.png)
 
+
+### Supported commands
+![commands](docs/img_2.png)
+
 ### Roadmap
 
 - [x] Create a symfony project;
@@ -34,6 +38,7 @@
 - [ ] Feature tests with @_dataProviders_;
 - [ ] Implement Disk parser;
 - [ ] Search for duplicates;
+- [ ] Configure deptrac;
 - [ ] Use Semantic release;
 - [ ] Expose API using _REST_ / _GraphQL_;
 - [ ] Reorganize structure of the project (now is using kind of DDD);
