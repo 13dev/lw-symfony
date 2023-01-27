@@ -3,11 +3,8 @@
 namespace App\Infra\Adapter;
 
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Reader\IReader;
-use PhpOffice\PhpSpreadsheet\Reader\IReadFilter;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use Symfony\Contracts\Service\Attribute\Required;
 
 class SpreadsheetAdapter
 {
@@ -15,16 +12,13 @@ class SpreadsheetAdapter
 
     public function __construct(
         private readonly string $filename,
-    )
-    {
+    ) {
         $reader = IOFactory::createReader(IOFactory::READER_XLSX);
         $reader->setReadDataOnly(true);
         $reader->setReadEmptyCells(false);
         $reader->setLoadSheetsOnly('Sheet2');
 
         $this->phpSpreadSheetInstance = $reader->load($this->filename);
-
-
     }
 
     public function getActiveSheet(): Worksheet
@@ -32,15 +26,15 @@ class SpreadsheetAdapter
         return $this->phpSpreadSheetInstance->getActiveSheet();
     }
 
-    public function getData(): array
+    public function toArray(): array
     {
-        return $this->getActiveSheet()->rangeToArray(
-            'A2:' . 'E' . $this->getActiveSheet()->getHighestRow(),
+        $activeSheet = $this->getActiveSheet();
+
+        return $activeSheet->rangeToArray(
+            range: 'A2:E'.$activeSheet->getHighestRow(),
             nullValue: false,
             calculateFormulas: false,
             formatData: false,
         );
     }
-
-
 }

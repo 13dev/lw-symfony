@@ -2,7 +2,6 @@
 
 namespace App\Domain\Common\Enum;
 
-
 enum RamTypeEnum: string
 {
     case DDR3 = 'DDR3';

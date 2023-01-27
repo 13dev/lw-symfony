@@ -6,7 +6,6 @@ namespace App\Domain\Common\ValueObject;
 
 use App\Domain\Common\Enum\DataUnitEnum;
 use App\Domain\Common\Enum\DiskTypeEnum;
-use InvalidArgumentException;
 
 class StorageValueObject
 {
@@ -14,20 +13,17 @@ class StorageValueObject
     // making it less vulnerable to ReDOS attacks.
     private const STORAGE_REGEX_EXPR = '/(\d{1,5})?(?:x)(\d{1,5})(\w{2})(\w{1,20})/';
 
-
     public function __construct(
         private readonly DiskTypeEnum $type,
         private readonly DataUnitEnum $unit,
-        private readonly int          $capacity,
-
-    )
-    {
+        private readonly int $capacity,
+    ) {
     }
 
     /**
-     * @throws InvalidArgumentException
-     * @param string $value
      * @return static
+     *
+     * @throws \InvalidArgumentException
      */
     public static function fromString(string $value): self
     {
@@ -37,15 +33,15 @@ class StorageValueObject
         [$_, $quantity, $capacity, $unit, $type] = $matches;
 
         if (empty($matches) || !isset($quantity, $capacity, $unit, $type)) {
-            throw new InvalidArgumentException('Invalid storage format.');
+            throw new \InvalidArgumentException('Invalid storage format.');
         }
 
         if (!$type = DiskTypeEnum::tryFrom($type)) {
-            throw new InvalidArgumentException('Invalid storage type.');
+            throw new \InvalidArgumentException('Invalid storage type.');
         }
 
         if (!$unit = DataUnitEnum::tryFrom($unit)) {
-            throw new InvalidArgumentException('Invalid storage data unit.');
+            throw new \InvalidArgumentException('Invalid storage data unit.');
         }
 
         return new self(
@@ -69,5 +65,4 @@ class StorageValueObject
     {
         return $this->type;
     }
-
 }

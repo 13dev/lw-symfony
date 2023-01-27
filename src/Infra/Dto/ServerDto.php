@@ -16,8 +16,7 @@ class ServerDto
         private readonly StorageValueObject $storage,
         private readonly PriceValueObject $price,
         private readonly string $location,
-    )
-    {
+    ) {
     }
 
     public function getName(): string
@@ -44,5 +43,4 @@ class ServerDto
     {
         return $this->location;
     }
-
 }

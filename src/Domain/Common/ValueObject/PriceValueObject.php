@@ -5,12 +5,10 @@ declare(strict_types=1);
 namespace App\Domain\Common\ValueObject;
 
 use App\Domain\Common\Enum\CurrencyEnum;
-use InvalidArgumentException;
 use JetBrains\PhpStorm\Immutable;
-use JsonSerializable;
 
 #[Immutable]
-final class PriceValueObject implements JsonSerializable
+final class PriceValueObject implements \JsonSerializable
 {
     // Match any string that starts with € or $ and then followed by one or more digits,
     // with the possibility of a , or . and two digits at the end,
@@ -19,10 +17,9 @@ final class PriceValueObject implements JsonSerializable
     private const PRICE_REGEX_EXPR = '/(?i)([SUPPORTED_CURRENCY])(\d+(?:[.,]\d{2})?)/u';
 
     public function __construct(
-        private readonly float        $value,
+        private readonly float $value,
         private readonly CurrencyEnum $currency
-    )
-    {
+    ) {
     }
 
     public static function fromString(string $price): self
@@ -30,16 +27,14 @@ final class PriceValueObject implements JsonSerializable
         $matches = [];
         preg_match(self::buildRegexExpr(), $price, $matches);
 
-
-
         if (empty($matches) || !isset($matches[1], $matches[2])) {
-
-            throw new InvalidArgumentException('Invalid price format');
+            throw new \InvalidArgumentException('Invalid price format');
         }
 
         if (!$parsedCurrency = CurrencyEnum::tryFrom($matches[1])) {
-            throw new InvalidArgumentException('Unknown currency');
+            throw new \InvalidArgumentException('Unknown currency');
         }
+
         return new self(
             value: (float) $matches[2],
             currency: $parsedCurrency
@@ -58,7 +53,7 @@ final class PriceValueObject implements JsonSerializable
 
     public function __toString(): string
     {
-        return $this->currency->value . $this->value;
+        return $this->currency->value.$this->value;
     }
 
     public function jsonSerialize(): string
@@ -74,6 +69,4 @@ final class PriceValueObject implements JsonSerializable
             subject: self::PRICE_REGEX_EXPR
         );
     }
-
-
 }

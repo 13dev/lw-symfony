@@ -6,7 +6,6 @@ namespace App\Domain\Common\ValueObject;
 
 use App\Domain\Common\Enum\DataUnitEnum;
 use App\Domain\Common\Enum\RamTypeEnum;
-use InvalidArgumentException;
 use JetBrains\PhpStorm\Immutable;
 
 #[Immutable]
@@ -15,11 +14,10 @@ class RamValueObject
     private const RAM_REGEX_EXPR = '/(\d+)(\w{2})(\w+)/';
 
     public function __construct(
-        private readonly RamTypeEnum  $type,
+        private readonly RamTypeEnum $type,
         private readonly DataUnitEnum $unit,
-        private readonly int          $capacity,
-    )
-    {
+        private readonly int $capacity,
+    ) {
     }
 
     public static function fromString(string $value): self
@@ -30,17 +28,15 @@ class RamValueObject
         [$_, $capacity, $dataUnit, $type] = $matches;
 
         if (empty($matches) || !isset($capacity, $dataUnit, $type)) {
-            throw new InvalidArgumentException('Invalid ram format.');
+            throw new \InvalidArgumentException('Invalid ram format.');
         }
 
-
         if (!$dataUnit = DataUnitEnum::tryFrom($dataUnit)) {
-
-            throw new InvalidArgumentException('Unknown data unit.');
+            throw new \InvalidArgumentException('Unknown data unit.');
         }
 
         if (!$type = RamTypeEnum::tryFrom($type)) {
-            throw new InvalidArgumentException('Unknown ram type.');
+            throw new \InvalidArgumentException('Unknown ram type.');
         }
 
         return new self(
@@ -48,7 +44,6 @@ class RamValueObject
             unit: $dataUnit,
             capacity: (int) $capacity,
         );
-
     }
 
     public function getUnit(): DataUnitEnum

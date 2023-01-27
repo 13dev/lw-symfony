@@ -12,10 +12,10 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         'session' => [
             'handler_id' => null, 'cookie_secure' => 'auto',
             'cookie_samesite' => 'lax',
-            'storage_factory_id' => 'session.storage.factory.native'
+            'storage_factory_id' => 'session.storage.factory.native',
         ],
         'php_errors' => ['log' => true]]);
-    if ($containerConfigurator->env() === 'test') {
+    if ('test' === $containerConfigurator->env()) {
         $containerConfigurator->extension('framework', ['test' => true, 'session' => ['storage_factory_id' => 'session.storage.factory.mock_file']]);
     }
 };

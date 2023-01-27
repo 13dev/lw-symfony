@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Domain\Common\Enum;
+
 use Elao\Enum\Attribute\EnumCase;
 use Elao\Enum\Attribute\ReadableEnum;
 use Elao\Enum\ReadableEnumInterface;
@@ -16,5 +17,4 @@ enum CurrencyEnum: string implements ReadableEnumInterface
 
     #[EnumCase('dollar')]
     case Dollar = '$';
-
 }
